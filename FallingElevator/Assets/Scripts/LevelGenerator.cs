@@ -12,24 +12,19 @@ public class LevelGenerator: MonoBehaviour
     private int _index = 0;
     
     private LevelSection _lastLevelSection;
-    
-    [Space]
-    public float minVerticalSpeed = 5f;
-    public float maxVerticalSpeed = 25f;
-    public float acceleration = .5f;
-    private float _verticalSpeed = 0f;
 
     [Space] public float sectionLifeTime = 10f;
 
     private List<LevelSection> _sections;
 
     private float _timeLastSpawn = 0f;
+
+    public ElevatorController ElevatorController;
     
     private void Awake()
     {
         _timeLastSpawn = Time.time;
-        // _sections = new List<LevelSection>();
-        _verticalSpeed = minVerticalSpeed;
+        _sections = new List<LevelSection>();
     }
 
     private void Start()
@@ -39,31 +34,14 @@ public class LevelGenerator: MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Calculate speed
-        _verticalSpeed += (_verticalSpeed * acceleration);
-    
-        if (_verticalSpeed >= maxVerticalSpeed)
-            _verticalSpeed = maxVerticalSpeed;
-        
         if (IsTimeToSpawn())
         {
             // Generate a rnd index
             _index = UnityEngine.Random.Range(0, prefabs.Count);
             _lastLevelSection = SpawnLevelSection(prefabs[_index], _lastLevelSection.endingPosition.position);
-            Debug.Log(_lastLevelSection);
-
-            _timeLastSpawn = Time.time;
         }
 
         CheckSectionLifeTime();
-        
-        Debug.Log(_sections.Count);
-
-        for (int i = 0; i <= _sections.Count; i++)
-        {
-            Debug.Log(_verticalSpeed);
-            _sections[i].transform.position = new Vector3(transform.position.x, transform.position.y + (_verticalSpeed * Time.deltaTime));
-        }
     }
 
     private bool IsTimeToSpawn()
@@ -74,9 +52,9 @@ public class LevelGenerator: MonoBehaviour
         float distance = Vector2.Distance(prefabs[_index].transform.position, prefabs[_index].endingPosition.position);
         // v = delta S / t
         // t = delta S  / v
-        float time = distance / maxVerticalSpeed;
+        float time = distance / Mathf.Abs(ElevatorController.maxVerticalSpeed);
 
-        if (_timeLastSpawn + time <= Time.time)
+        if (_timeLastSpawn + (time/4) <= Time.time)
             return true;
         
         return false;
@@ -85,9 +63,8 @@ public class LevelGenerator: MonoBehaviour
     {
         foreach (var sec in _sections)
         {
-            if (sec.spawnTime + sectionLifeTime >= Time.time)
+            if (sec.spawnTime + sectionLifeTime <= Time.time)
             {
-                Destroy(sec, 1f);
                 _sections.Remove(sec);
                 return;
             }
@@ -98,10 +75,8 @@ public class LevelGenerator: MonoBehaviour
         LevelSection ending = Instantiate(prefab, spawnPosition, Quaternion.identity);
         
         ending.spawnTime = Time.time;
-
-        _sections.Append(ending);
-        Debug.Log("After Append" + _sections.Count);
-        
+        _sections.Add(ending);
+        _timeLastSpawn = Time.time;
         return ending;
     }
 }

@@ -36,15 +36,18 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
     private void RegisterHit()
     {
         ResetScene();
     }
-
-    private void ResetScene()
+    public static void ResetScene()
     {
-        Scene scene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(scene.name);
+        Scene scene = SceneManager.GetSceneByName("Level"); 
+        SceneManager.LoadScene("Level");
+    }
+
+    public static void LoadStartingMenu()
+    {
+        SceneManager.LoadScene("StartingScene");
     }
 }

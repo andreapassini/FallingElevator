@@ -20,6 +20,10 @@ public class ElevatorController : MonoBehaviour
     private float _increment;
     public float step = .5f;
     
+    [Space]
+    public float maxVerticalSpeed = -15f;
+    private float _verticalSpeed = 0f;
+    
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -60,6 +64,9 @@ public class ElevatorController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_rigidbody2D.velocity.y <= maxVerticalSpeed)
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, maxVerticalSpeed);
+        
         _rigidbody2D.AddForce(_vecForce);
     }
 

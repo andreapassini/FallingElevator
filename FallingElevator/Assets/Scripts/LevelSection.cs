@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 public class LevelSection: MonoBehaviour
 {
     public Transform endingPosition;
-
+    [HideInInspector]
+    public float spawnTime;
     private void Awake()
     {
         if (endingPosition == null)

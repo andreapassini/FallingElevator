@@ -228,6 +228,10 @@ MonoBehaviour:
   - {fileID: 3428533712631959226, guid: dc7bff7a4fe163742b1644b9f6e55294, type: 3}
   - {fileID: 5973914578336219736, guid: 0b0cbf064c987e14c94af2a4c2cb549e, type: 3}
   startingSection: {fileID: 3428533712631959226, guid: dc7bff7a4fe163742b1644b9f6e55294, type: 3}
+  minVerticalSpeed: 5
+  maxVerticalSpeed: 25
+  acceleration: 5
+  sectionLifeTime: 10
 --- !u!1 &735185641
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +273,10 @@ PrefabInstance:
     - target: {fileID: 7397276502532456056, guid: dc7bff7a4fe163742b1644b9f6e55294, type: 3}
       propertyPath: m_Name
       value: Section
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397276502532456056, guid: dc7bff7a4fe163742b1644b9f6e55294, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8045241495236375385, guid: dc7bff7a4fe163742b1644b9f6e55294, type: 3}
       propertyPath: m_RootOrder

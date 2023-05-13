@@ -9,10 +9,7 @@ public class ElevatorController : MonoBehaviour
 {
     public float minForce = 10f;
     public float maxForce = 25f;
-    
-    [Space]
-    public float maxVerticalSpeed = -25f;
-    
+
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider2D;
 
@@ -63,12 +60,6 @@ public class ElevatorController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Add the forces to the rb
-        if (_rigidbody2D.velocity.y <= maxVerticalSpeed)
-        {
-            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, maxVerticalSpeed);
-        }
-
         _rigidbody2D.AddForce(_vecForce);
     }
 

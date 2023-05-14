@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
     }
     private void RegisterHit()
     {
-        ResetScene();
+        LoadLevelScene();
     }
-    public static void ResetScene()
+    public static void LoadLevelScene()
     {
         Scene scene = SceneManager.GetSceneByName("Level"); 
         SceneManager.LoadScene("Level");

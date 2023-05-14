@@ -33,7 +33,7 @@ public class ElevatorController : MonoBehaviour
     private void Update()
     {
         // Catch the input
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetMouseButton(0))
         {
             if (!_moveRight)
             {
